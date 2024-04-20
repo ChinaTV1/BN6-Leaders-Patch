@@ -1,8 +1,9 @@
-.gba //defines the architecture (unique to armips)
+//including your asm, so I don't wanna open a new file
+;.gba //defines the architecture (unique to armips)
 
-@addr equ 0x8000000 
+@addr equ 0x8000000  
 
-.open "rom.gba","patchedrom.gba", @addr 
+;.open "rom.gba","patchedrom.gba", @addr 
 
 //Emotion window location of HeatCross
 .org 0x72BED0+@addr
@@ -25,5 +26,5 @@
 .import "bins/ColonelTired.pal.bin"
 
 
-.close
+;.close
 
