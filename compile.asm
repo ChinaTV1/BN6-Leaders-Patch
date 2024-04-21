@@ -33,13 +33,16 @@
 ;.dw ColForceInit|1
  
 
+.org 0x80ECE28
+.include "CrossSwordChange/CrossSwordJump.asm"
+
 .org 0x18045A4+@addr
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
-
+importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
 .align 4
 PointerAttackList:
-.import "Sprites/bins/pointerattacklist.bin"
+pointerrecur "rom.gba",0xEBFA0,0
 .dw ColonelSliceLoop|1
 
 .align 2
@@ -52,7 +55,8 @@ PointerAttackList:
 .include "ColForceChargeShot/ColChargeSettings.asm"
 .align 2
 .include "ColForceChargeShot/ColChargeAttack.asm"
-
+.align 2
+.include "CrossSwordChange/CrossSword.asm"
 
 
 
@@ -68,8 +72,8 @@ PointerAttackList:
 .org 0xBE0E0+@addr
 .dw Prologue|1
 
-;.orga 0x31E00
-;.dw Saber
+.orga 0x31E00
+.dw Saber
 
 .orga 0x1BB10
 .dw PointerAttackList 
