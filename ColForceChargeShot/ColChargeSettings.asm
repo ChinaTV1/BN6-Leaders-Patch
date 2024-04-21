@@ -16,7 +16,7 @@ strb r0,[r7,0x3]
 bl Target
 strb r0,[r7,0x16]
 strb r1,[r7,0x17]
-mov r0,0x27
+mov r0,0x5F
 
 pop r8,r15
 .pool
