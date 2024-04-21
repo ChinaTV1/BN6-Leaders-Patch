@@ -45,6 +45,7 @@ push r7
 BXwithR11 @navi_sword_arm_type_check
 mov r4,r0
 BXwithR11 @navi_sword_arm_seq_check
+mov r0,0xF
 lsl r0,r0,0x8
 add r4,r4,r0
 mov r7,0x4C

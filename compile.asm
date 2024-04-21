@@ -36,7 +36,7 @@
 .org 0x18045A4+@addr
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
-
+importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
 .align 4
 PointerAttackList:
 .import "Sprites/bins/pointerattacklist.bin"
@@ -68,8 +68,8 @@ PointerAttackList:
 .org 0xBE0E0+@addr
 .dw Prologue|1
 
-;.orga 0x31E00
-;.dw Saber
+.orga 0x31E00
+.dw Saber
 
 .orga 0x1BB10
 .dw PointerAttackList 
