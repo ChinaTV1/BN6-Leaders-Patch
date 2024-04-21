@@ -74,6 +74,9 @@ PointerAttackList:
 .orga 0x1BB10
 .dw PointerAttackList 
 
+.orga 0xEC384
+.dw PointerAttackList
+
 ;.orga 0xEBFFC
 ;.dw ColonelSliceLoop|1
 
