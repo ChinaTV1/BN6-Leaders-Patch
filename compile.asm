@@ -29,13 +29,18 @@
 .org 0xBDEE6+@addr
 .include "ChangingCrossSprite.asm"
 
-.org 0xEC034+@addr
-.dw ColForceInit|1
+;.org 0xEC034+@addr
+;.dw ColForceInit|1
  
 
 .org 0x18045A4+@addr
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
+
+.align 4
+PointerAttackList:
+.import "Sprites/bins/pointerattacklist.bin"
+.dw ColonelSliceLoop|1
 
 .align 2
 .include "HeatmanCrossSpriteChange/HeatManCrossSpriteChange.asm"
@@ -66,8 +71,11 @@ importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
 ;.orga 0x31E00
 ;.dw Saber
 
-.orga 0xEBFFC
-.dw ColonelSliceLoop|1
+.orga 0x1BB10
+.dw PointerAttackList 
+
+;.orga 0xEBFFC
+;.dw ColonelSliceLoop|1
 
 .org 0x3284C+@addr
 .dw ColonelSprite
