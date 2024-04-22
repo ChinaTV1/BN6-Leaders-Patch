@@ -29,10 +29,6 @@
 .org 0xBDEE6+@addr
 .include "ChangingCrossSprite.asm"
 
-;.org 0xEC034+@addr
-;.dw ColForceInit|1
- 
-
 .org 0x80ECE28
 .include "CrossSwordChange/CrossSwordJump.asm"
 
@@ -49,8 +45,6 @@ pointerrecur "rom.gba",0xEBFA0,0
 .include "HeatmanCrossSpriteChange/HeatManCrossSpriteChange.asm"
 .align 2
 .include "HeatmanCrossSpriteChange/ImprovedDeCompressObjTrans.asm"
-.align 2
-.include "ColForceChargeShot/ColForceInit.asm"
 .align 2
 .include "ColForceChargeShot/ColChargeSettings.asm"
 .align 2

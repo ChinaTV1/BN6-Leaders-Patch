@@ -32,7 +32,7 @@ pop r15
 
 .align 2
 ColonelSliceInit:
-push r4,r6,r11,r14
+push r4,r6,r14
 ldrb r0,[r7,0x1]
 tst r0,r0
 bne Jump
@@ -100,7 +100,7 @@ BXwithR11 @BattleHitStatusFlagOff
 mov r0,0x4
 strh r0,[r7]
 Escape:
-pop r4,r6,r11,r15
+pop r4,r6,r15
 .pool
 
 .align 2
