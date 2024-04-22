@@ -1,11 +1,19 @@
 .macro BXwithR11, jumpAddress
 
-push r0
+add sp,-0x8
+str r0,[sp]
+mov r0,r11
+str r0,[sp,0x4]
 ldr  r0,=jumpAddress
 mov r11,r0
-pop r0
+ldr r0,[sp]
 mov r14,r15
 bx r11
+str r0,[sp]
+ldr r0,[sp,0x4]
+mov r11,r0
+ldr r0,[sp]
+add sp,0x8
 
 .endmacro
 
