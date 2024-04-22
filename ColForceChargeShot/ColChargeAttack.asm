@@ -18,8 +18,7 @@ ColonelSliceLoop:
 push r14
 ldr r1,=@@AttackPool
 ldrb r0,[r7]
-add r1,r0
-ldr r1,[r1]
+ldr r1,[r1,r0]
 mov r14,r15
 bx r1
 pop r15
