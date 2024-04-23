@@ -32,6 +32,10 @@
 .org 0x80ECE28
 .include "CrossSwordChange/CrossSwordJump.asm"
 
+.org 0x2F6444+@addr
+importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
+.align 4
+
 .org 0x18045A4+@addr
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
