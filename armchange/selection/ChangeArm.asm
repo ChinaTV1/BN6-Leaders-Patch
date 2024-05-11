@@ -1,0 +1,15 @@
+push r14
+ldrb r1,[r5,0x8]
+subs r1,0x1
+strb r1,[r5,0x8]
+bl ChipAddress
+ldr r0,[r0,0x20]
+ldr r1,=0x6016EC0
+mov r2,0x80
+bl MemCopy
+mov r0,0x1E
+str r0,[r5,0x40]
+mov r0,0x2
+strb r0,[r4,0x7]
+mov r0,0x4
+strh r0,[r5,0x2]
