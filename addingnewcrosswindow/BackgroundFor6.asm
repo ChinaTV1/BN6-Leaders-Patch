@@ -1,3 +1,17 @@
+BranchThis:
+push r14
+mov r2,r6
+cmp r2,0x5
+beq Done
+mul r1,r2
+ldr r2,=0x600A720
+add r1,r1,r2
+pop r15
+Done:
+ldr r1,=0x600D000
+pop r15
+.pool
+
 BackgroundCrossWindow:
 push r14
 ldrb r0,[r5,0x18]
