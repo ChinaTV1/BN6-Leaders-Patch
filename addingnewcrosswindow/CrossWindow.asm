@@ -13,14 +13,19 @@ mov r2,6h ;selection color
 .db 0x56
 .org 0x8029F60
 .db 0x56
-.org 0x8029F3A
-cmp r4,6h
+
+.org 0x8029F30
+nop
+
 .org 0x8029EC0
 .dw PalettesForCrossWindow
 
 
 .org 0x8029F0A
 nop
+
+.org 0x08029F3A
+cmp r4,0x6
 
 .org 0x8028AD0
 bl BitTestWindow
