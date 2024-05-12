@@ -1,10 +1,11 @@
-@Buster equ 0x08012642|1
+@Buster equ 0x08012642
 
 ColonelCrossChargeAttackSet:
 push r14
 mov r0,0x28
 mov r1,0xA
-BXwithR11 @Buster 
+;bl @Buster-addr+Rom
+BXwithR11 @Buster|1 
 strh r0,[r7,0x8]
 mov r0,0x94
 strh r0,[r7,0xA]
