@@ -1,3 +1,7 @@
+.org 0x8029De0
+.dw 0x600C000 
+
+
 .org 0x8029DA0
 mov r0,6h  ;crosswindow grayscale 
 .org 0x8029DD8
