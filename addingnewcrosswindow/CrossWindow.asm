@@ -21,3 +21,17 @@ cmp r4,6h
 
 .org 0x8029F0A
 nop
+
+.org 0x8028AD0
+bl BitTestWindow
+bne 0x8028AF8
+
+.org 0x8028AD6
+bl BitSetWindow
+
+.org 0x802904C
+nop
+
+.org 0x8027976
+bl BitTestWindow
+beq 0x802797E
