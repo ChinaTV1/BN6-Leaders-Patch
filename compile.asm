@@ -24,6 +24,9 @@ addr equ 0x8000000
 .org 0x802786a
 bl BackgroundCrossWindow
 
+.orga 0x2F6444
+importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
+
 
 
 .org 0x82F9244
