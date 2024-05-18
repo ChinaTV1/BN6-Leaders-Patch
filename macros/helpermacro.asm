@@ -28,3 +28,13 @@ Loop:
 .endmacro 
 
 
+.macro pointerrecurSpritePalette, offset,curr,end,newpointer
+;LoopSprite:
+.if end>curr
+	.notice tohex(curr)
+	.orga curr
+	
+	.dw newpointer
+	pointerrecurSpritePalette offset,curr+offset,end,newpointer
+.endif
+.endmacro

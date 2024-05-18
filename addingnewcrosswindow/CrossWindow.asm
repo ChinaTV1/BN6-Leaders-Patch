@@ -1,7 +1,11 @@
-.org 0x8029DAE
-bl BranchThis
-nop 
-nop
+;.org 0x802794C
+;bl Scroll
+.org 0x8028AAA
+bl Scroll
+;.org 0x8029DAE
+;bl BranchThis
+;nop 
+;nop
 
 
 .org 0x8029DA0
@@ -30,8 +34,8 @@ nop
 .org 0x8029F0A
 nop
 
-.org 0x08029F3A
-cmp r4,0x6
+;.org 0x08029F3A
+;cmp r4,0x6
 
 .org 0x8028AD0
 bl BitTestWindow
