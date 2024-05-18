@@ -18,8 +18,8 @@ addr equ 0x8000000
 .include "ElementalChange/ChangingType.asm"
 
 
-.orga 0x29DE4
-.dw MapCrossWindow
+;.orga 0x29DE4
+;.dw MapCrossWindow
 
 .org 0x802786a
 bl BackgroundCrossWindow
@@ -34,6 +34,7 @@ importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 .include "ColBeastCrossChargeShot/LOCKON.asm"
 .include "ElementalChange/newType.asm"
 .include "addingnewcrosswindow/BackgroundFor6.asm"
+.include "addingnewcrosswindow/Scroll.asm"
 .endarea
 
 .include "ElementalChange/changingType.asm"
@@ -93,6 +94,8 @@ PalettesForCrossWindow:
 .import "Sprites/bins/ColonelSelect2.pal.bin"
 MapCrossWindow:
 .import "Sprites/maps/CrossMaps.bin"
+MegamanNewPalette:
+.import "Sprites/palette/megaman.pal.bin"
 
 
 
@@ -130,7 +133,8 @@ MapCrossWindow:
 .org 0x31E10+addr
 .dw ColonelSprite
 
+.definelabel newPaletteAddress,MegamanNewPalette-0x81D8004
 
-
+pointerrecurSpritePalette 0x14,0x1D8068,0x1D866C,newPaletteAddress
 
 .close
