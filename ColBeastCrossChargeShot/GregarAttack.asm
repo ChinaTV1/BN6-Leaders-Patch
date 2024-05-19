@@ -1,0 +1,5 @@
+.org 0x80EB080
+bl ChangeAttack
+
+.org 0x80Eb0F2
+mov r2,0x10

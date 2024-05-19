@@ -12,7 +12,7 @@ addr equ 0x8000000
 .include "macros/helpermacro.asm" ;
 
 
-.include "ColBeastCrossChargeShot/ChangeAttack.asm"
+.include "ColBeastCrossChargeShot/GregarAttack.asm"
 .include "addingnewcrosswindow/CrossWindow.asm"
 
 .include "ElementalChange/ChangingType.asm"
@@ -29,18 +29,24 @@ importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 
 
 
-.org 0x82F9244
-.area 0x200
+.orga 0x1DE15C
+.area 0x564
+.align 2 
+.include "ColBeastCrossChargeShot/ChangeAttack.asm"
+.align 2
 .include "ColBeastCrossChargeShot/LOCKON.asm"
+.align 2
 .include "ElementalChange/newType.asm"
+.align 2
 .include "addingnewcrosswindow/BackgroundFor6.asm"
+.align 2
 .include "addingnewcrosswindow/Scroll.asm"
 .endarea
 
 .include "ElementalChange/changingType.asm"
 
-.orga 0x1DE1A0
-.import "Sprites/bins/BaseMegaMan.pal.bin"
+;.orga 0x1DE1A0
+;.import "Sprites/bins/BaseMegaMan.pal.bin"
 
 .orga 0x6E73D0
 .import "Sprites/bins/ColonelSelection.pal.bin"
@@ -101,7 +107,7 @@ MegamanNewPalette:
 
 
 .org pointerrecur_loop_00000025
-.dw 0x81055B8|1;0x80EB06A|1
+.dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
 
 .orga 0x117EC
 .dw ColonelCrossChargeAttackSet|1
