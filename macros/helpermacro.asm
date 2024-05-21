@@ -27,11 +27,22 @@ Loop:
 
 .endmacro 
 
+.macro pointercopy, file,offset,curr,end
+Loop:
+@@pointer equ readu32(file,offset+(curr<<2))
+.if curr<end
+    .dw @@pointer
+    pointercopy file,offset,(curr+1),end
+.endif
+
+.endmacro 
+
+
 
 .macro pointerrecurSpritePalette, offset,curr,end,newpointer
 ;LoopSprite:
 .if end>curr
-	.notice tohex(curr)
+	;.notice tohex(curr)
 	.orga curr
 	
 	.dw newpointer
