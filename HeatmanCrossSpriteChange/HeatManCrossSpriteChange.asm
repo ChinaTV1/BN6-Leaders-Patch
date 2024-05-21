@@ -1,4 +1,4 @@
-@Navi_Char_Id_Get equ 0x800FC9E+1
+@Navi_Char_Id_Get equ 0x800FC9E|1
 ;9F FC 00 08
 Prologue:
 push r14
@@ -16,7 +16,7 @@ ldr r2,=@Navi_Char_id_Get
 mov r1,0
 mov r14,r15
 bx r2
-cmp r0,0x19
+cmp r0,Kernel
 bne Finished
 bl UncompressColonel
 mov r2,0x12

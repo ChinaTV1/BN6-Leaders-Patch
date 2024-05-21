@@ -17,6 +17,7 @@ addr equ 0x8000000
 .include "EmotionWindowChanges/EmotionHooks.asm"
 
 .include "NewIndex/Index.asm"
+.include "ColForceChargeShot/ChargeSpeedHook.asm"
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
@@ -45,6 +46,8 @@ bl BackgroundCrossWindow
 .include "SpriteColonelCrossIndex/ColonelAccessory.asm"
 .align 2
 .include "EmotionWindowChanges/EmotionSelection.asm"
+.align 2
+.include "ColForceChargeShot/ChargeSpeed.asm"
 .endarea
 
 ;.include "ElementalChange/changingType.asm"
@@ -97,6 +100,10 @@ KillEm:
 pointerrecur "rom.gba",0x11398,0
 .dw 0x8011212|1
 
+ChargeAttackList:
+pointerrecur "rom.gba",0x117D4,0
+.dw ColonelCrossChargeAttackSet|1
+
 SpriteIndexes:
 .import "Sprites\bins\spriteindex.bin"
 .db 0xC, 0x69
@@ -135,12 +142,19 @@ PaletteEmotionColonelCross:
 MegamanNewPaletteIndex:
 .import "Sprites/bins/paletteindex.bin"
 .db 0x2B
-
+CrossAttackSettings:
+.import "ColForceChargeShot/CrossSettingsAttack.bin"
+.db 0xFF,0xFF,0x00,0x94,0xFF,0xFF
 
 .org pointerrecur_loop_00000025
 .dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
 
 
+.orga 0x117D0
+.dw ChargeAttackList
+
+.orga 0xFFE0
+.dw CrossAttackSettings
 
 .orga 0x11394
 .dw KillEm
@@ -151,8 +165,8 @@ MegamanNewPaletteIndex:
 .orga 0x32794
 .dw ColonelBusterSprite
 
-.orga 0x117EC
-.dw ColonelCrossChargeAttackSet|1
+;.orga 0x117EC
+;.dw ColonelCrossChargeAttackSet|1
 
 .orga 0x1454C
 .dw soulattri
