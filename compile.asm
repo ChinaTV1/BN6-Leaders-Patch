@@ -7,16 +7,16 @@ addr equ 0x8000000
 
 .relativeinclude on
 
-.include "Sprites/EmotionCompilerColonel.asm"
+;.include "Sprites/EmotionCompilerColonel.asm"
 .include "macros/importSprites.asm" ;(import asm code)
 .include "macros/helpermacro.asm" ;
-
+.include "Constants/IndexConstants.asm"
 
 .include "ColBeastCrossChargeShot/GregarAttack.asm"
 .include "addingnewcrosswindow/CrossWindow.asm"
+.include "EmotionWindowChanges/EmotionHooks.asm"
 
-.include "ElementalChange/ChangingType.asm"
-
+.include "NewIndex/Index.asm"
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
@@ -24,11 +24,11 @@ addr equ 0x8000000
 .org 0x802786a
 bl BackgroundCrossWindow
 
-.orga 0x2F6444
-importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 
 
 
+
+;collection of functions
 .orga 0x1DE15C
 .area 0x564
 .align 2 
@@ -36,17 +36,19 @@ importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 .align 2
 .include "ColBeastCrossChargeShot/LOCKON.asm"
 .align 2
-.include "ElementalChange/newType.asm"
-.align 2
 .include "addingnewcrosswindow/BackgroundFor6.asm"
 .align 2
 .include "addingnewcrosswindow/Scroll.asm"
+.align 2
+.include "NewIndex/ReIndex.asm"
+.align 2 
+.include "SpriteColonelCrossIndex/ColonelAccessory.asm"
+.align 2
+.include "EmotionWindowChanges/EmotionSelection.asm"
 .endarea
 
-.include "ElementalChange/changingType.asm"
+;.include "ElementalChange/changingType.asm"
 
-;.orga 0x1DE1A0
-;.import "Sprites/bins/BaseMegaMan.pal.bin"
 
 .orga 0x6E73D0
 .import "Sprites/bins/ColonelSelection.pal.bin"
@@ -68,14 +70,39 @@ importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 
 
 
-.org 0x18045A4+addr
+.orga 0x18045A4
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
 importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
+importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
+importSprite KernelEmotion,"Sprites/bins/EmotionBeastAndCross.img.bin"
 .align 4
 PointerAttackList:
 pointerrecur "rom.gba",0xEBFA0,0
 .dw ColonelSliceLoop|1
+AccessoryCrossList:
+pointerrecur "rom.gba",0x1127C,0
+.dw ColonelAccessory|1
+soulattri:
+pointerrecur "rom.gba",0x14550,0
+.dw 0x080145b5
+listofsprites:
+pointercopy "rom.gba",0x31E00,0,0x69
+.dw ColonelSprite
+Collesion:
+pointerrecur "rom.gba",0xC5B44,0
+.dw 0x80C5AC8 ;0x13 newindex
+
+KillEm:
+pointerrecur "rom.gba",0x11398,0
+.dw 0x8011212|1
+
+SpriteIndexes:
+.import "Sprites\bins\spriteindex.bin"
+.db 0xC, 0x69
+WindowConstants:
+.import "EmotionWindowChanges\WindowConstants.bin"
+.db Kernel
 .align 2
 .include "HeatmanCrossSpriteChange/HeatManCrossSpriteChange.asm"
 .align 2
@@ -102,20 +129,38 @@ MapCrossWindow:
 .import "Sprites/maps/CrossMaps.bin"
 MegamanNewPalette:
 .import "Sprites/palette/megaman.pal.bin"
-
-
+.import "Sprites/bins/BaseMegaman.pal.bin"
+PaletteEmotionColonelCross:
+.import "Sprites/bins/EmotionColonelCross.pal.bin"
+MegamanNewPaletteIndex:
+.import "Sprites/bins/paletteindex.bin"
+.db 0x2B
 
 
 .org pointerrecur_loop_00000025
 .dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
 
+
+
+.orga 0x11394
+.dw KillEm
+
+.orga 0x1E6FC
+.dw WindowConstants
+
+.orga 0x32794
+.dw ColonelBusterSprite
+
 .orga 0x117EC
 .dw ColonelCrossChargeAttackSet|1
 
-.org 0x31CF0+addr
+.orga 0x1454C
+.dw soulattri
+
+.orga 0x31CF0
 .dw BeastColonelSprite
 
-.org 0x3286C+addr
+.orga 0x3286C
 .dw BeastColonelSprite
 
 .org 0xBE0E0+addr
@@ -133,11 +178,21 @@ MegamanNewPalette:
 ;.orga 0xEBFFC
 ;.dw ColonelSliceLoop|1
 
-.org 0x3284C+addr
-.dw ColonelSprite
+.orga 0x11278
+.dw AccessoryCrossList
 
-.org 0x31E10+addr
-.dw ColonelSprite
+.orga 0x31CD0
+.dw listofsprites
+
+.orga 0xC5C30
+.dw Collesion
+
+.orga 0xC5C2C
+.dw SpriteIndexes
+
+.orga 0x10224
+.dw MegamanNewPaletteIndex
+
 
 .definelabel newPaletteAddress,MegamanNewPalette-0x81D8004
 
