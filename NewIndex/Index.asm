@@ -5,7 +5,7 @@ bl TESTFORBEASTAfterChoosingCross
 .org 0x8029392
 bl ReIndex
 .org 0x8014A44
-cmp r0,0x19
+cmp r0,0x1A
 bgt 0x8014AA8
 bl NewCompForCross
 .org 0x8014A58
@@ -16,3 +16,5 @@ bl TESTFOREGULARCROSS
 bl PaletteForColonel
 .org 0x80F16F4
 bl newTestSuperBeast
+.org  0x802A592
+bl TESTFORBEASTCrossWindow

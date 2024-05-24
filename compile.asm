@@ -19,6 +19,8 @@ addr equ 0x8000000
 .include "NewIndex/Index.asm"
 .include "ColForceChargeShot/ChargeSpeedHook.asm"
 
+.include "NewIndex/BeastIndexHooks.asm"
+
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
 
@@ -48,6 +50,8 @@ bl BackgroundCrossWindow
 .include "EmotionWindowChanges/EmotionSelection.asm"
 .align 2
 .include "ColForceChargeShot/ChargeSpeed.asm"
+.align 2
+.include "NewIndex/BeastReIndex.asm"
 .endarea
 
 ;.include "ElementalChange/changingType.asm"
@@ -73,12 +77,14 @@ bl BackgroundCrossWindow
 
 
 
+
 .orga 0x18045A4
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
 importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
 importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 importSprite KernelEmotion,"Sprites/bins/EmotionBeastAndCross.img.bin"
+importSprite KernelTiredEmotion, "Sprites/bins/ColonelTired.img.bin"
 .align 4
 PointerAttackList:
 pointerrecur "rom.gba",0xEBFA0,0
@@ -88,10 +94,16 @@ pointerrecur "rom.gba",0x1127C,0
 .dw ColonelAccessory|1
 soulattri:
 pointerrecur "rom.gba",0x14550,0
-.dw 0x080145b5
+.dw 0x080145b4|1
+.dw 0x08014650|1
 listofsprites:
 pointercopy "rom.gba",0x31E00,0,0x69
 .dw ColonelSprite
+
+listofSpritesCategoryZero:
+pointercopy "rom.gba",0x31CEC,0,0xE
+.dw BeastColonelSprite
+
 Collesion:
 pointerrecur "rom.gba",0xC5B44,0
 .dw 0x80C5AC8 ;0x13 newindex
@@ -100,16 +112,31 @@ KillEm:
 pointerrecur "rom.gba",0x11398,0
 .dw 0x8011212|1
 
+EnemyAccessoryList:
+pointerrecur "rom.gba",0x10EA4,0
+.dw 0x80114D4|1
+.dw 0x80114D4|1
+
+EnemyAccessoryListKill:
+pointerrecur "rom.gba",0x110F4,0
+.dw 0x80114D4|1
+.dw 0x80114D4|1
+
 ChargeAttackList:
 pointerrecur "rom.gba",0x117D4,0
 .dw ColonelCrossChargeAttackSet|1
+
+playercharpointers:
+.import "newenemylist/playerablecharpointersforgregar.bin"
+.dw 0x80F1600
+.dw ColonelBeastAttributes
 
 SpriteIndexes:
 .import "Sprites\bins\spriteindex.bin"
 .db 0xC, 0x69
 WindowConstants:
 .import "EmotionWindowChanges\WindowConstants.bin"
-.db Kernel
+.db Kernel,KernelBeastOut
 .align 2
 .include "HeatmanCrossSpriteChange/HeatManCrossSpriteChange.asm"
 .align 2
@@ -139,15 +166,57 @@ MegamanNewPalette:
 .import "Sprites/bins/BaseMegaman.pal.bin"
 PaletteEmotionColonelCross:
 .import "Sprites/bins/EmotionColonelCross.pal.bin"
+PaletteEmotionKernelCrossBeast:
+.import "Sprites/bins/EmotionColonelBeast.pal.bin"
+PaletteTiredKernelCross:
+.import "Sprites/bins/ColonelTired.pal.bin"
 MegamanNewPaletteIndex:
 .import "Sprites/bins/paletteindex.bin"
-.db 0x2B
+.db 0x2B,0x0
 CrossAttackSettings:
 .import "ColForceChargeShot/CrossSettingsAttack.bin"
 .db 0xFF,0xFF,0x00,0x94,0xFF,0xFF
+MegamanCharPosition:
+.import "MegamanCharPosition/MegamanPos.bin"
+.db 0x0,0xE
+NewEnemyList:
+.import "newenemylist/newenemyattributes.bin"
+.db 0x0,0x2,0x31 ;ColonelCross
+.db 0x0,0x2,0x32 ;ColonelCrossBeast
 
-.org pointerrecur_loop_00000025
-.dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
+ColonelBeastAttributes:
+.db 0x0,0xE,0x1,0x2,0x0
+
+BeastOutAdjust:
+.import "newenemylist/beastoutadjust.bin"
+.db 0x1
+
+.org pointercopy_loop_00000000
+.dw Saber
+
+;.org pointerrecur_loop_00000025
+;.dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
+
+.orga 0x188AC 
+.dw BeastOutAdjust
+
+.orga 0x10E14
+.dw EnemyAccessoryList
+
+.orga 0x11064
+.dw EnemyAccessoryListKill
+
+.orga 0xF238
+.dw playercharpointers
+
+.orga 0x182C0
+.dw NewEnemyList
+
+.orga 0x31CC4
+.dw listofSpritesCategoryZero
+
+.orga 0xFCB4 
+.dw MegamanCharPosition
 
 
 .orga 0x117D0
@@ -165,23 +234,13 @@ CrossAttackSettings:
 .orga 0x32794
 .dw ColonelBusterSprite
 
-;.orga 0x117EC
-;.dw ColonelCrossChargeAttackSet|1
-
 .orga 0x1454C
 .dw soulattri
-
-.orga 0x31CF0
-.dw BeastColonelSprite
-
-.orga 0x3286C
-.dw BeastColonelSprite
 
 .org 0xBE0E0+addr
 .dw Prologue|1
 
-.orga 0x31E00
-.dw Saber
+
 
 .orga 0x1BB10
 .dw PointerAttackList 

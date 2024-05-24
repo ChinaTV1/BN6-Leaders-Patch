@@ -15,3 +15,9 @@ bl theWindowCheck
 
 .org 0x802A0AA
 bl CheckForBeastinWindow
+
+.org 0x802A0AE
+bl BEASTEMOTION
+
+.org 0x802A06A
+bl BEASTEMOTION2

@@ -1,3 +1,14 @@
+TESTFORBEASTCrossWindow:
+cmp r1,Kernel
+beq @@RegularOption
+cmp r1,0xB
+bge @@NoBeastOption
+@@RegularOption:
+mov r15,r14
+@@NoBeastOption:
+bl 0x802A598
+
+
 TESTFORBEASTAfterChoosingCross:
 cmp r1,Kernel
 beq @@RegularCrossBranch
@@ -9,15 +20,23 @@ bl 0x8029388
 
 ReIndex:
 cmp r0,5
-bne OtherCrosses
+bne @@OtherCrosses
 mov r0,Kernel-1
-OtherCrosses:
+cmp r4,0xD
+beq @@KernelBeastOutSet
+@@OtherCrosses:
 add r0,r0,r4
+mov r1,0x0
+mov r15,r14
+@@KernelBeastOutSet:
+mov r0,KernelBeastOut
 mov r1,0x0
 mov r15,r14
 
 NewCompForCross:
 cmp r0,Kernel
+beq OGBRANCH
+cmp r0,KernelBeastOut
 beq OGBRANCH
 cmp r0,0x17
 blt OGBRANCH
@@ -54,6 +73,8 @@ mov r15,r14
 
 newTestSuperBeast:
 cmp r0,Kernel
+beq NonSuperBeast
+cmp r0,KernelBeastOut
 beq NonSuperBeast
 cmp r0,0x17
 blt NonSuperBeast
