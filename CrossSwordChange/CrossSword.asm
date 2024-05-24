@@ -29,7 +29,7 @@ Jump2:
 mov r1,0x2C
 BXwithR11 @naviinfo
 mov r7,0xF
-cmp r0,0x1
+cmp r0,Kernel
 beq LoadSaber
 
 mov r7,0x0
