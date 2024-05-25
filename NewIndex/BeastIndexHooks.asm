@@ -70,3 +70,6 @@ nop
 .org 0x8014C6A
 nop
 nop
+
+.org 0x800F062
+bl BeastBoostNormalAttack

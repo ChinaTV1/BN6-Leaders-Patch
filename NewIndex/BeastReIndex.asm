@@ -136,6 +136,12 @@ mov r15,r14
 bl 0x8015B2E
 .pool
 
-
-
+BeastBoostNormalAttack:
+cmp r0, KernelBeastOut
+beq @@NormalBeastOut
+cmp r0, 0x16
+ble @@NormalBeastOut
+bl 0x800F090
+@@NormalBeastOut:
+mov r15,r14
 
