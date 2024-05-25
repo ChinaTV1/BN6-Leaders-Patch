@@ -55,6 +55,8 @@ bl BackgroundCrossWindow
 .include "NewIndex/BeastReIndex.asm"
 .align 2
 .include "ColBeastCrossChargeShot/SetChargeShotForBeastKernel.asm"
+.align 2
+.include "BLeftSoldier/SetSoldier.asm"
 .endarea
 
 ;.include "ElementalChange/changingType.asm"
@@ -130,6 +132,7 @@ ChargeAttackList:
 pointerrecur "rom.gba",0x117D4,0
 .dw ColonelCrossChargeAttackSet|1
 .dw ChargeShotKernelBeastSet|1
+.dw KernelSetSoldier|1 ;Soldiers
 
 playercharpointers:
 .import "newenemylist/playerablecharpointersforgregar.bin"
@@ -180,8 +183,8 @@ MegamanNewPaletteIndex:
 .db 0x2B,0x0
 CrossAttackSettings:
 .import "ColForceChargeShot/CrossSettingsAttack.bin"
-.db 0xFF,0xFF,0x00,0x94,0xFF,0xFF ;ColonelCross
-.db 0xFF, 0x05,0x04,0xFF,0xFF,0x95 ;ColonelBeast
+.db 0xFF,0xFF,0x00,0x94,0x96,0xFF ;ColonelCross
+.db 0xFF, 0x05,0x04,0xFF,0x96,0x95 ;ColonelBeast
 MegamanCharPosition:
 .import "MegamanCharPosition/MegamanPos.bin"
 .db 0x0,0xE
@@ -196,6 +199,16 @@ ColonelBeastAttributes:
 BeastOutAdjust:
 .import "newenemylist/beastoutadjust.bin"
 .db 0x1
+
+SecondType:
+.import "ElementalChange/SecondElements.bin"
+.db 0x40 ;Kernel
+.db 0x40 ;Kernel Beast
+
+
+
+.orga 0x108B4
+.dw SecondType
 
 .org pointercopy_loop_00000000
 .dw Saber
