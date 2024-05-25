@@ -21,6 +21,7 @@ addr equ 0x8000000
 
 .include "NewIndex/BeastIndexHooks.asm"
 
+
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
 
@@ -52,6 +53,8 @@ bl BackgroundCrossWindow
 .include "ColForceChargeShot/ChargeSpeed.asm"
 .align 2
 .include "NewIndex/BeastReIndex.asm"
+.align 2
+.include "ColBeastCrossChargeShot/SetChargeShotForBeastKernel.asm"
 .endarea
 
 ;.include "ElementalChange/changingType.asm"
@@ -89,6 +92,7 @@ importSprite KernelTiredEmotion, "Sprites/bins/ColonelTired.img.bin"
 PointerAttackList:
 pointerrecur "rom.gba",0xEBFA0,0
 .dw ColonelSliceLoop|1
+.dw NewChargeAttack|1
 AccessoryCrossList:
 pointerrecur "rom.gba",0x1127C,0
 .dw ColonelAccessory|1
@@ -125,6 +129,7 @@ pointerrecur "rom.gba",0x110F4,0
 ChargeAttackList:
 pointerrecur "rom.gba",0x117D4,0
 .dw ColonelCrossChargeAttackSet|1
+.dw ChargeShotKernelBeastSet|1
 
 playercharpointers:
 .import "newenemylist/playerablecharpointersforgregar.bin"
@@ -176,7 +181,7 @@ MegamanNewPaletteIndex:
 CrossAttackSettings:
 .import "ColForceChargeShot/CrossSettingsAttack.bin"
 .db 0xFF,0xFF,0x00,0x94,0xFF,0xFF ;ColonelCross
-.db 0xFF, 0x05,0x04,0xFF,0xFF,0x1E ;ColonelBeast
+.db 0xFF, 0x05,0x04,0xFF,0xFF,0x95 ;ColonelBeast
 MegamanCharPosition:
 .import "MegamanCharPosition/MegamanPos.bin"
 .db 0x0,0xE
@@ -197,6 +202,7 @@ BeastOutAdjust:
 
 ;.org pointerrecur_loop_00000025
 ;.dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
+
 
 .orga 0x188AC 
 .dw BeastOutAdjust
