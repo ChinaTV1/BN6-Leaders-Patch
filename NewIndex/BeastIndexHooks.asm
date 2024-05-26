@@ -1,3 +1,6 @@
+.org 0x8013194
+bl BEASTOUTBLEFT
+
 .org 0x8029362
 bl BeastNewIndex
 
