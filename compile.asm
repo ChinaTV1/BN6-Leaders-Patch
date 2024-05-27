@@ -202,6 +202,7 @@ BeastOutAdjust:
 
 SecondType:
 .import "ElementalChange/SecondElements.bin"
+.db 0x0 
 .db 0x40 ;Kernel
 .db 0x40 ;Kernel Beast
 

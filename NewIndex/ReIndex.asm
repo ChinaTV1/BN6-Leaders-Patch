@@ -1,3 +1,33 @@
+NewWeakCheck:
+cmp r0,Kernel
+beq @@ChooseMegamanType
+cmp r0,0xA
+ble @@ChooseMegamanType
+mov r1,0xB
+cmp r0,KernelBeastOut
+beq @@ChooseMegamanType
+cmp r0, 0x11
+ble @@ChooseMegamanType
+mov r1,0xC
+
+@@ChooseMegamanType:
+bl 0x0801580A
+
+
+
+
+
+TESTFORCROSSANDBEASTFORGFXWEAPONS:
+cmp r0,Kernel
+beq @@RegularCross
+cmp r0,r1
+bgt @@BeastOut
+@@RegularCross:
+mov r15,r14
+@@BeastOut:
+bl 0x80bA5A6
+
+
 TESTFORBEASTCrossWindow:
 cmp r1,Kernel
 beq @@RegularOption
