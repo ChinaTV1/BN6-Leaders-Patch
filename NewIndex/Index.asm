@@ -1,3 +1,17 @@
+.org 0x80157FE
+bl NewWeakCheck
+
+
+
+.org 0x801b03E
+nop 
+nop
+
+.org 0x80BA592
+bl TESTFORCROSSANDBEASTFORGFXWEAPONS
+
+
+
 .org 0x8029382
 bl TESTFORBEASTAfterChoosingCross
 
