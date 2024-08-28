@@ -22,18 +22,10 @@ mov r1,0x2C
 bl NaviStatusGet3
 cmp r0,Kernel
 beq @@ChangeArm
-cmp r0,KernelBeastOut
-beq @@ChangeArmBeast
 b @@armChangeEscape
 @@ChangeArm:
-
 strh r4,[r7,0x3A]
 mov r2,0x94
-b @@AnotherBranch
-@@ChangeArmBeast:
-strh r4,[r7,0x3A]
-mov r2,0xFF
-@@AnotherBranch:
 ldr r1,=0xFFFF
 cmp r4,r1
 beq @@ChangeChargeAttack

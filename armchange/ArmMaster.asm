@@ -10,3 +10,4 @@
 .include "armCancel.asm"
 .include "armchange.asm"
 .include "armBuster.asm"
+.include "armDeletechip.asm"

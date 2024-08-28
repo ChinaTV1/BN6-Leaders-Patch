@@ -5,3 +5,4 @@
 .include "armDrawHook.asm"
 .include "armCancelHook.asm"
 .include "armChangeHook.asm"
+.include "armDeleteHook.asm"

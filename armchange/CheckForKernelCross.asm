@@ -10,8 +10,8 @@ ldrb r0,[r5,0x10]
 cmp r0,0
 bne @@FINISH
 cmp r7,Kernel
-beq @@BRANCH2
-cmp r7,KernelBeastOut
+;beq @@BRANCH2
+;cmp r7,KernelBeastOut
 bne @@BRANCH3
 @@BRANCH2:
 mov r0,ArmChangeIndex
