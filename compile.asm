@@ -21,6 +21,8 @@ addr equ 0x8000000
 
 .include "NewIndex/BeastIndexHooks.asm"
 
+.include "armchange/armHooks.asm"
+
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
@@ -59,6 +61,11 @@ bl BackgroundCrossWindow
 .include "BLeftSoldier/SetSoldier.asm"
 .endarea
 
+.org 0x81DF420
+.align 2
+.include "armchange/ArmMaster.asm"
+
+
 ;.include "ElementalChange/changingType.asm"
 
 
@@ -84,12 +91,27 @@ bl BackgroundCrossWindow
 
 
 .orga 0x18045A4
+
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
 importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
 importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
 importSprite KernelEmotion,"Sprites/bins/EmotionBeastAndCross.img.bin"
 importSprite KernelTiredEmotion, "Sprites/bins/ColonelTired.img.bin"
+
+
+
+
+.align 4
+FirstArm:
+.incbin "armchange/ARMBG/ARM.bin"
+.incbin "armchange/ARMBG/ARM2.bin"
+
+ArmICON:
+.incbin "armchange/ARMBG/ARM3.bin"
+PALLETEARM:
+.incbin "armchange/ARMBG/ArmPalette.bin"
+
 .align 4
 PointerAttackList:
 pointerrecur "rom.gba",0xEBFA0,0
@@ -109,6 +131,33 @@ pointercopy "rom.gba",0x31E00,0,0x69
 listofSpritesCategoryZero:
 pointercopy "rom.gba",0x31CEC,0,0xE
 .dw BeastColonelSprite
+
+
+BackgroundForCustomWindow:
+pointerrecur "rom.gba",0x28370,0
+.dw SetArmDraw|1 ; 13
+.dw 0x80282AC|1 ;EmptyDraw
+CursorsForBackgrounds:
+pointerrecur "rom.gba",0x2886C,0
+.dw 0
+.dw 0
+.dw 0
+.dw 0x8028938|1
+.dw 0x8028938|1
+
+CursorSelect:
+pointerrecur "rom.gba",0x28C9C,0
+.dw 0
+.dw 0
+.dw 0
+.dw SelectArm|1
+.dw SelectArm|1
+
+custom_movePointers:
+pointerrecur "rom.gba",0x26AA4,0
+.dw ARMEffectMain|1    ;24
+
+
 
 Collesion:
 pointerrecur "rom.gba",0xC5B44,0
@@ -133,6 +182,7 @@ pointerrecur "rom.gba",0x117D4,0
 .dw ColonelCrossChargeAttackSet|1
 .dw ChargeShotKernelBeastSet|1
 .dw KernelSetSoldier|1 ;Soldiers
+.dw armBuster|1
 
 playercharpointers:
 .import "newenemylist/playerablecharpointersforgregar.bin"
@@ -208,6 +258,8 @@ SecondType:
 
 
 
+
+
 .orga 0x108B4
 .dw SecondType
 
@@ -261,13 +313,21 @@ SecondType:
 .org 0xBE0E0+addr
 .dw Prologue|1
 
-
+.orga 0x2836C
+.dw BackgroundForCustomWindow
 
 .orga 0x1BB10
 .dw PointerAttackList 
 
 .orga 0xEC384
 .dw PointerAttackList
+
+.orga 0x28868
+.dw CursorsForBackgrounds
+
+.orga 0x28C98
+.dw CursorSelect
+
 
 ;.orga 0xEBFFC
 ;.dw ColonelSliceLoop|1
@@ -286,6 +346,10 @@ SecondType:
 
 .orga 0x10224
 .dw MegamanNewPaletteIndex
+
+
+.orga 0x26AA0
+.dw custom_movePointers
 
 
 .definelabel newPaletteAddress,MegamanNewPalette-0x81D8004
