@@ -169,13 +169,15 @@ pointerrecur "rom.gba",0x11398,0
 
 EnemyAccessoryList:
 pointerrecur "rom.gba",0x10EA4,0
-.dw 0x80114D4|1
+.dw ColonelAccessory|1
 .dw 0x80114D4|1
 
 EnemyAccessoryListKill:
 pointerrecur "rom.gba",0x110F4,0
 .dw 0x80113FD|1
 .dw 0x80114D4|1
+
+
 
 ChargeAttackList:
 pointerrecur "rom.gba",0x117D4,0
