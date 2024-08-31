@@ -1,0 +1,13 @@
+.align 2
+.include "armDraw.asm"
+.include "set_arm_chip.asm"
+.include "enable.asm"
+.include "ArmEffect/ArmEffect1.asm"
+.include "armProc.asm"
+.include "CheckForKernelCross.asm"
+.include "ArmDrawCommand.asm"
+.include "armSio.asm"
+.include "armCancel.asm"
+.include "armchange.asm"
+.include "armBuster.asm"
+.include "armDeletechip.asm"

@@ -50,3 +50,10 @@ nop
 .org 0x8027976
 bl BitTestWindow
 beq 0x802797E
+
+.org 0x8029F3A
+cmp r4,0x6
+
+.org 0x8029F3E
+bl setToMaxValue
+

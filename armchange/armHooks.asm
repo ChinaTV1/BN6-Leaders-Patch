@@ -1,0 +1,8 @@
+.include "setarmchiphook.asm"
+.include "ArmSioHook.asm"
+.include "enablehhook.asm"
+.include "Garbagehook.asm"
+.include "armDrawHook.asm"
+.include "armCancelHook.asm"
+.include "armChangeHook.asm"
+.include "armDeleteHook.asm"

@@ -3,8 +3,10 @@
 
 addr equ 0x8000000 
 
-.open "rom.gba","patchedrom.gba",addr 
 
+
+.open "rom.gba","patchedrom.gba",addr 
+filesizerom equ filesize("rom.gba")
 .relativeinclude on
 
 ;.include "Sprites/EmotionCompilerColonel.asm"
@@ -21,6 +23,11 @@ addr equ 0x8000000
 
 .include "NewIndex/BeastIndexHooks.asm"
 
+.include "armchange/armHooks.asm"
+
+.include "Buster/BusterHook.asm"
+
+.include "soundFix/SoundHook.asm"
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
@@ -57,7 +64,18 @@ bl BackgroundCrossWindow
 .include "ColBeastCrossChargeShot/SetChargeShotForBeastKernel.asm"
 .align 2
 .include "BLeftSoldier/SetSoldier.asm"
+.align 2
+.include "Buster/Buster.asm"
+.align 2
+.include "soundFix/sound.asm"
 .endarea
+
+.org 0x81DF420
+.area 0x88A5
+.align 2
+.include "armchange/ArmMaster.asm"
+.endarea
+
 
 ;.include "ElementalChange/changingType.asm"
 
@@ -83,13 +101,29 @@ bl BackgroundCrossWindow
 
 
 
-.orga 0x18045A4
+.orga filesizerom  ;0x18045A4
+
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
 importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
-importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
+importsprite ColonelBusterSprite,"Sprites/dumps/Various_Buster_Tips_with_Colonels.DMP"
+importsprite HeatBeast,"Sprites/dumps/HeatBeast.dmp"
 importSprite KernelEmotion,"Sprites/bins/EmotionBeastAndCross.img.bin"
 importSprite KernelTiredEmotion, "Sprites/bins/ColonelTired.img.bin"
+
+
+
+
+.align 4
+FirstArm:
+.incbin "armchange/ARMBG/ARM.bin"
+.incbin "armchange/ARMBG/ARM2.bin"
+
+ArmICON:
+.incbin "armchange/ARMBG/ARM3.bin"
+PALLETEARM:
+.incbin "armchange/ARMBG/ArmPalette.bin"
+
 .align 4
 PointerAttackList:
 pointerrecur "rom.gba",0xEBFA0,0
@@ -110,6 +144,33 @@ listofSpritesCategoryZero:
 pointercopy "rom.gba",0x31CEC,0,0xE
 .dw BeastColonelSprite
 
+
+BackgroundForCustomWindow:
+pointerrecur "rom.gba",0x28370,0
+.dw SetArmDraw|1 ; 13
+.dw 0x80282AC|1 ;EmptyDraw
+CursorsForBackgrounds:
+pointerrecur "rom.gba",0x2886C,0
+.dw 0
+.dw 0
+.dw 0
+.dw 0x8028938|1
+.dw 0x8028938|1
+
+CursorSelect:
+pointerrecur "rom.gba",0x28C9C,0
+.dw 0
+.dw 0
+.dw 0
+.dw SelectArm|1
+.dw SelectArm|1
+
+custom_movePointers:
+pointerrecur "rom.gba",0x26AA4,0
+.dw ARMEffectMain|1    ;24
+
+
+
 Collesion:
 pointerrecur "rom.gba",0xC5B44,0
 .dw 0x80C5AC8 ;0x13 newindex
@@ -120,7 +181,7 @@ pointerrecur "rom.gba",0x11398,0
 
 EnemyAccessoryList:
 pointerrecur "rom.gba",0x10EA4,0
-.dw 0x80114D4|1
+.dw ColonelAccessory|1
 .dw 0x80114D4|1
 
 EnemyAccessoryListKill:
@@ -128,11 +189,14 @@ pointerrecur "rom.gba",0x110F4,0
 .dw 0x80113FD|1
 .dw 0x80114D4|1
 
+
+
 ChargeAttackList:
 pointerrecur "rom.gba",0x117D4,0
 .dw ColonelCrossChargeAttackSet|1
 .dw ChargeShotKernelBeastSet|1
 .dw KernelSetSoldier|1 ;Soldiers
+.dw armBuster|1
 
 playercharpointers:
 .import "newenemylist/playerablecharpointersforgregar.bin"
@@ -208,6 +272,8 @@ SecondType:
 
 
 
+
+
 .orga 0x108B4
 .dw SecondType
 
@@ -261,13 +327,24 @@ SecondType:
 .org 0xBE0E0+addr
 .dw Prologue|1
 
-
+.orga 0x2836C
+.dw BackgroundForCustomWindow
 
 .orga 0x1BB10
 .dw PointerAttackList 
 
 .orga 0xEC384
 .dw PointerAttackList
+
+.orga 0x28868
+.dw CursorsForBackgrounds
+
+.orga 0x28C98
+.dw CursorSelect
+
+
+
+
 
 ;.orga 0xEBFFC
 ;.dw ColonelSliceLoop|1
@@ -287,6 +364,15 @@ SecondType:
 .orga 0x10224
 .dw MegamanNewPaletteIndex
 
+
+.orga 0x26AA0
+.dw custom_movePointers
+
+.org listofSpritesCategoryZero+0x4
+.dw HeatBeast
+
+.org listofsprites +0xC
+.dw ColonelBusterSprite
 
 .definelabel newPaletteAddress,MegamanNewPalette-0x81D8004
 
