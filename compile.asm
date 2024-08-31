@@ -3,8 +3,10 @@
 
 addr equ 0x8000000 
 
-.open "rom.gba","patchedrom.gba",addr 
 
+
+.open "rom.gba","patchedrom.gba",addr 
+filesizerom equ filesize("rom.gba")
 .relativeinclude on
 
 ;.include "Sprites/EmotionCompilerColonel.asm"
@@ -23,6 +25,9 @@ addr equ 0x8000000
 
 .include "armchange/armHooks.asm"
 
+.include "Buster/BusterHook.asm"
+
+.include "soundFix/SoundHook.asm"
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
@@ -59,11 +64,17 @@ bl BackgroundCrossWindow
 .include "ColBeastCrossChargeShot/SetChargeShotForBeastKernel.asm"
 .align 2
 .include "BLeftSoldier/SetSoldier.asm"
+.align 2
+.include "Buster/Buster.asm"
+.align 2
+.include "soundFix/sound.asm"
 .endarea
 
 .org 0x81DF420
+.area 0x88A5
 .align 2
 .include "armchange/ArmMaster.asm"
+.endarea
 
 
 ;.include "ElementalChange/changingType.asm"
@@ -90,12 +101,13 @@ bl BackgroundCrossWindow
 
 
 
-.orga 0x18045A4
+.orga filesizerom  ;0x18045A4
 
 importsprite ColonelSprite,"Sprites/dumps/ColonelCross_Final.dmp"
 importsprite BeastColonelSprite,"Sprites/dumps/ColonelBeast_Final.dmp"
 importsprite Saber,"Sprites/dumps/bn6swordwithCol.DMP"
-importsprite ColonelBusterSprite,"Sprites/dumps/ColonelBusterMerged.dmp"
+importsprite ColonelBusterSprite,"Sprites/dumps/Various_Buster_Tips_with_Colonels.DMP"
+importsprite HeatBeast,"Sprites/dumps/HeatBeast.dmp"
 importSprite KernelEmotion,"Sprites/bins/EmotionBeastAndCross.img.bin"
 importSprite KernelTiredEmotion, "Sprites/bins/ColonelTired.img.bin"
 
@@ -331,6 +343,9 @@ SecondType:
 .dw CursorSelect
 
 
+
+
+
 ;.orga 0xEBFFC
 ;.dw ColonelSliceLoop|1
 
@@ -353,6 +368,11 @@ SecondType:
 .orga 0x26AA0
 .dw custom_movePointers
 
+.org listofSpritesCategoryZero+0x4
+.dw HeatBeast
+
+.org listofsprites +0xC
+.dw ColonelBusterSprite
 
 .definelabel newPaletteAddress,MegamanNewPalette-0x81D8004
 
