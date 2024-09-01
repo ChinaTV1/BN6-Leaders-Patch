@@ -1,3 +1,5 @@
+.vdef rocks,0x80EB04C,0x80E9D0C
+
 NewChargeAttack:
 push r14
 ldrb r0,[r7,0x1]
@@ -13,13 +15,13 @@ str r0,[r5,0x3C]
 ;bl 0x801A15C
 mov r0,0x1
 lsl r0,r0,0x16
-bl 0x801A152
+bl 0x801A152 ;same
 mov r0,0x2
 mov r1,0x1E
-bl 0x80302A8
+bl 0x80302A8 ;same
 mov r0,0xC9
 add r0,0xFF
-bl 0x80005CC
+bl 0x80005CC ;same
 push r4,r6,r7
 mov r2,0x0
 mov r4,0xC
@@ -36,7 +38,7 @@ lsl r3,r3,0x18
 orr r4,r3
 ldr r6,[r7,0x8]
 ldr r7,[r7,0x2C]
-bl 0x80EB04C
+bl rocks ;0x80EB04C
 pop r4,r6,r7
 ldrh r0,[r7,0x18]
 strh r0,[r7,0x10]

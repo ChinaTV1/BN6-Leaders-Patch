@@ -1,4 +1,4 @@
-@naviinfo equ 0x8013774|1
+@naviinfo equ 0x8013774|1 ;same for both
 
 saberload:
 push r4,r7,r14

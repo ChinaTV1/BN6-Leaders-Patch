@@ -9,30 +9,31 @@ addr equ 0x8000000
 filesizerom equ filesize("rom.gba")
 .relativeinclude on
 
-;.include "Sprites/EmotionCompilerColonel.asm"
+
 .include "macros/importSprites.asm" ;(import asm code)
 .include "macros/helpermacro.asm" ;
 .include "Constants/IndexConstants.asm"
 
-.include "ColBeastCrossChargeShot/GregarAttack.asm"
-.include "addingnewcrosswindow/CrossWindow.asm"
-.include "EmotionWindowChanges/EmotionHooks.asm"
+;.include "ColBeastCrossChargeShot/GregarAttack.asm" ;looks good
 
-.include "NewIndex/Index.asm"
-.include "ColForceChargeShot/ChargeSpeedHook.asm"
+.include "addingnewcrosswindow/CrossWindow.asm" ;looks good
+.include "EmotionWindowChanges/EmotionHooks.asm" ;looks good
 
-.include "NewIndex/BeastIndexHooks.asm"
+.include "NewIndex/Index.asm" ; looks good
+.include "ColForceChargeShot/ChargeSpeedHook.asm";looks good
+
+.include "NewIndex/BeastIndexHooks.asm" ;looks good
 
 .include "armchange/armHooks.asm"
 
-.include "Buster/BusterHook.asm"
+;.include "Buster/BusterHook.asm" 
 
 .include "soundFix/SoundHook.asm"
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
 
-.org 0x802786a
+.org 0x802786a  ;same for falzar
 bl BackgroundCrossWindow
 
 
@@ -40,62 +41,46 @@ bl BackgroundCrossWindow
 
 
 ;collection of functions
-.orga 0x1DE15C
+.orga 0x1DE15C ; same for falzar
 .area 0x564
 .align 2 
-.include "ColBeastCrossChargeShot/ChangeAttack.asm"
+.include "ColBeastCrossChargeShot/ChangeAttack.asm" ;looks good
 .align 2
-.include "ColBeastCrossChargeShot/LOCKON.asm"
+.include "ColBeastCrossChargeShot/LOCKON.asm" ;looks good
 .align 2
-.include "addingnewcrosswindow/BackgroundFor6.asm"
+.include "addingnewcrosswindow/BackgroundFor6.asm" ;looks good
 .align 2
-.include "addingnewcrosswindow/Scroll.asm"
+.include "addingnewcrosswindow/Scroll.asm" ;looks good
 .align 2
-.include "NewIndex/ReIndex.asm"
+.include "NewIndex/ReIndex.asm" ;looks good 
 .align 2 
-.include "SpriteColonelCrossIndex/ColonelAccessory.asm"
+.include "SpriteColonelCrossIndex/ColonelAccessory.asm" ;looks good
 .align 2
-.include "EmotionWindowChanges/EmotionSelection.asm"
+.include "EmotionWindowChanges/EmotionSelection.asm" ;looks good
 .align 2
-.include "ColForceChargeShot/ChargeSpeed.asm"
+.include "ColForceChargeShot/ChargeSpeed.asm" ;looksgood
 .align 2
-.include "NewIndex/BeastReIndex.asm"
+.include "NewIndex/BeastReIndex.asm" ;looks good
 .align 2
-.include "ColBeastCrossChargeShot/SetChargeShotForBeastKernel.asm"
+.include "ColBeastCrossChargeShot/SetChargeShotForBeastKernel.asm" ;looks good
 .align 2
-.include "BLeftSoldier/SetSoldier.asm"
-.align 2
-.include "Buster/Buster.asm"
+.include "BLeftSoldier/SetSoldier.asm" ;looks good
+;.align 2
+;.include "Buster/Buster.asm"
 .align 2
 .include "soundFix/sound.asm"
 .endarea
 
-.org 0x81DF420
+.org 0x81DF420 
 .area 0x88A5
 .align 2
 .include "armchange/ArmMaster.asm"
 .endarea
 
-
-;.include "ElementalChange/changingType.asm"
-
-
-.orga 0x6E73D0
-.import "Sprites/bins/ColonelSelection.pal.bin"
-
-.orga 0x6E5D50
-.import "Sprites/bins/ColonelSelection.img.bin"
-
-.orga 0x6E6890
-.import "Sprites/bins/ColonelGray.img.bin"
-
-.orga 0x6E7470
-.import "Sprites/bins/ColonelSelect2.pal.bin"
-
-.orga 0xBDEE6
+.vorga 0xBDEE6,0xBC676
 .include "ChangingCrossSprite.asm"
 
-.org 0x80ECE28
+.vorg 0x80ECE28,0x80EBAE8
 .include "CrossSwordChange/CrossSwordJump.asm"
 
 
@@ -124,33 +109,42 @@ ArmICON:
 PALLETEARM:
 .incbin "armchange/ARMBG/ArmPalette.bin"
 
+;falzar is 0x80EAC60
 .align 4
 PointerAttackList:
+.if gamever == 0
 pointerrecur "rom.gba",0xEBFA0,0
+.elseif gamever == 1 
+pointerrecur "rom.gba",0xEAC60,0
+.endif
 .dw ColonelSliceLoop|1
 .dw NewChargeAttack|1
+
 AccessoryCrossList:
-pointerrecur "rom.gba",0x1127C,0
+pointerrecur "rom.gba",0x1127C,0 ;same 
 .dw ColonelAccessory|1
+
 soulattri:
-pointerrecur "rom.gba",0x14550,0
+pointerrecur "rom.gba",0x14550,0 ;same 
 .dw 0x080145b4|1
 .dw 0x08014650|1
+
 listofsprites:
-pointercopy "rom.gba",0x31E00,0,0x69
+pointercopy "rom.gba",0x31E00,0,0x69 ;same
 .dw ColonelSprite
 
-listofSpritesCategoryZero:
+listofSpritesCategoryZero: ;same
 pointercopy "rom.gba",0x31CEC,0,0xE
 .dw BeastColonelSprite
 
 
 BackgroundForCustomWindow:
-pointerrecur "rom.gba",0x28370,0
+pointerrecur "rom.gba",0x28370,0  ;same
 .dw SetArmDraw|1 ; 13
 .dw 0x80282AC|1 ;EmptyDraw
+
 CursorsForBackgrounds:
-pointerrecur "rom.gba",0x2886C,0
+pointerrecur "rom.gba",0x2886C,0 ;same
 .dw 0
 .dw 0
 .dw 0
@@ -158,7 +152,7 @@ pointerrecur "rom.gba",0x2886C,0
 .dw 0x8028938|1
 
 CursorSelect:
-pointerrecur "rom.gba",0x28C9C,0
+pointerrecur "rom.gba",0x28C9C,0 ;same
 .dw 0
 .dw 0
 .dw 0
@@ -166,33 +160,39 @@ pointerrecur "rom.gba",0x28C9C,0
 .dw SelectArm|1
 
 custom_movePointers:
-pointerrecur "rom.gba",0x26AA4,0
+pointerrecur "rom.gba",0x26AA4,0 ;same
 .dw ARMEffectMain|1    ;24
 
 
 
 Collesion:
+.if gamever == 0
 pointerrecur "rom.gba",0xC5B44,0
 .dw 0x80C5AC8 ;0x13 newindex
+.elseif gamever == 1 
+pointerrecur "rom.gba",0xC42D4,0
+.endif
+.dw 0x80C5AC8 ;0x13 newindex
+
 
 KillEm:
-pointerrecur "rom.gba",0x11398,0
+pointerrecur "rom.gba",0x11398,0 ;same
 .dw 0x8011212|1
 
 EnemyAccessoryList:
-pointerrecur "rom.gba",0x10EA4,0
+pointerrecur "rom.gba",0x10EA4,0 ;same
 .dw ColonelAccessory|1
 .dw 0x80114D4|1
 
 EnemyAccessoryListKill:
-pointerrecur "rom.gba",0x110F4,0
+pointerrecur "rom.gba",0x110F4,0 ;same
 .dw 0x80113FD|1
 .dw 0x80114D4|1
 
 
 
 ChargeAttackList:
-pointerrecur "rom.gba",0x117D4,0
+pointerrecur "rom.gba",0x117D4,0  ;same
 .dw ColonelCrossChargeAttackSet|1
 .dw ChargeShotKernelBeastSet|1
 .dw KernelSetSoldier|1 ;Soldiers
@@ -200,7 +200,11 @@ pointerrecur "rom.gba",0x117D4,0
 
 playercharpointers:
 .import "newenemylist/playerablecharpointersforgregar.bin"
+.if gamever == 0
 .dw 0x80F1600
+.elseif gamever == 1
+.dw 0x80F02C0
+.endif
 .dw ColonelBeastAttributes
 
 SpriteIndexes:
@@ -210,15 +214,15 @@ WindowConstants:
 .import "EmotionWindowChanges\WindowConstants.bin"
 .db Kernel,KernelBeastOut
 .align 2
-.include "HeatmanCrossSpriteChange/HeatManCrossSpriteChange.asm"
+.include "HeatmanCrossSpriteChange/HeatManCrossSpriteChange.asm" ;okay
 .align 2
-.include "HeatmanCrossSpriteChange/ImprovedDeCompressObjTrans.asm"
+.include "HeatmanCrossSpriteChange/ImprovedDeCompressObjTrans.asm" ;okay
 .align 2
-.include "ColForceChargeShot/ColChargeSettings.asm"
+.include "ColForceChargeShot/ColChargeSettings.asm" ;okay
 .align 2
-.include "ColForceChargeShot/ColChargeAttack.asm"
+.include "ColForceChargeShot/ColChargeAttack.asm" ;okay
 .align 2
-.include "CrossSwordChange/CrossSword.asm"
+.include "CrossSwordChange/CrossSword.asm" ;okay
 
 CrossWindows:
 .align 4
@@ -284,86 +288,83 @@ SecondType:
 ;.dw NewChargeAttack|1;0x81055B8|1;0x80EB06A|1
 
 
-.orga 0x188AC 
+.orga 0x188AC  ;okay
 .dw BeastOutAdjust
 
-.orga 0x10E14
+.orga 0x10E14  ;okay
 .dw EnemyAccessoryList
 
-.orga 0x11064
+.orga 0x11064 ;okay
 .dw EnemyAccessoryListKill
 
-.orga 0xF238
+.orga 0xF238 ;okay
 .dw playercharpointers
 
-.orga 0x182C0
+.orga 0x182C0 ;okay
 .dw NewEnemyList
 
-.orga 0x31CC4
+.orga 0x31CC4 ;okay
 .dw listofSpritesCategoryZero
 
-.orga 0xFCB4 
+.orga 0xFCB4 ;okay
 .dw MegamanCharPosition
 
 
-.orga 0x117D0
+.orga 0x117D0 ;okay
 .dw ChargeAttackList
 
-.orga 0xFFE0
+.orga 0xFFE0 ;okay
 .dw CrossAttackSettings
 
-.orga 0x11394
+.orga 0x11394 ;okay
 .dw KillEm
 
-.orga 0x1E6FC
+.orga 0x1E6FC ;okay
 .dw WindowConstants
 
-.orga 0x32794
-.dw ColonelBusterSprite
+;.orga 0x32794
+;.dw ColonelBusterSprite
 
-.orga 0x1454C
+.orga 0x1454C ;okay
 .dw soulattri
 
-.org 0xBE0E0+addr
+.vorga 0xBE0E0,0xBC870
 .dw Prologue|1
 
-.orga 0x2836C
+.orga 0x2836C ;same
 .dw BackgroundForCustomWindow
 
-.orga 0x1BB10
+.orga 0x1BB10 ;same for both
 .dw PointerAttackList 
 
-.orga 0xEC384
+.vorga 0xEC384,0xEB044 ;different for both
 .dw PointerAttackList
 
-.orga 0x28868
+.orga 0x28868 ;same
 .dw CursorsForBackgrounds
 
-.orga 0x28C98
+.orga 0x28C98 ;same
 .dw CursorSelect
 
-
-
-
-
-;.orga 0xEBFFC
-;.dw ColonelSliceLoop|1
 
 .orga 0x11278
 .dw AccessoryCrossList
 
-.orga 0x31CD0
+.orga 0x31CD0 ;same
 .dw listofsprites
 
-.orga 0xC5C30
+.vorga 0xC5C30,0xC43C0
 .dw Collesion
 
-.orga 0xC5C2C
+.vorga 0xC5C2C,0xC43BC
 .dw SpriteIndexes
 
-.orga 0x10224
+.orga 0x10224 ;same
 .dw MegamanNewPaletteIndex
 
+
+.vorga 0xEF5DC,0xEE29C
+.dh 0x1B06 ;elecbuster
 
 .orga 0x26AA0
 .dw custom_movePointers

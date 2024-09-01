@@ -1,13 +1,13 @@
-.org 0x80157FE
+.org 0x80157FE ;good
 bl NewWeakCheck
 
 
 
-.org 0x801b03E
+.org 0x801b03E ;good
 nop 
 nop
 
-.org 0x80BA592
+.vorg 0x80BA592,0x80B8D22
 bl TESTFORCROSSANDBEASTFORGFXWEAPONS
 
 
@@ -18,6 +18,7 @@ bl TESTFORBEASTAfterChoosingCross
 
 .org 0x8029392
 bl ReIndex
+
 .org 0x8014A44
 cmp r0,0x1A
 bgt 0x8014AA8
@@ -26,9 +27,10 @@ bl NewCompForCross
 bl TESTFORBEASTCROSS
 .org 0x8014A72
 bl TESTFOREGULARCROSS
-.org 0x80BDF6E
+.vorg 0x80BDF6E,0x80BC6FE
 bl PaletteForColonel
-.org 0x80F16F4
+.vorg 0x80F16F4,0x80F03B4
 bl newTestSuperBeast
-.org  0x802A592
+
+.vorg  0x802A592,0x802A596
 bl TESTFORBEASTCrossWindow

@@ -16,16 +16,20 @@ bl 0x0801580A
 
 
 
-
+ .vdef FinishGFXWeapons,0x80BA596,0x80B8D36
 TESTFORCROSSANDBEASTFORGFXWEAPONS:
-cmp r0,Kernel
+ldr r2,=0x1C4
+cmp r0,r2
 beq @@RegularCross
 cmp r0,r1
 bgt @@BeastOut
 @@RegularCross:
 mov r15,r14
 @@BeastOut:
-bl 0x80bA5A6
+bl FinishGFXWeapons
+.pool
+
+.vdef AltExitForCrossWIndow,0x802A598,0x802A59C
 
 
 TESTFORBEASTCrossWindow:
@@ -36,7 +40,7 @@ bge @@NoBeastOption
 @@RegularOption:
 mov r15,r14
 @@NoBeastOption:
-bl 0x802A598
+bl AltExitForCrossWIndow
 
 
 TESTFORBEASTAfterChoosingCross:
@@ -48,11 +52,15 @@ mov r15,r14
 @@RegularCrossBranch:
 bl 0x8029388
 
+.vdef constantToSub,1,6
+
 ReIndex:
 cmp r0,5
 bne @@OtherCrosses
-mov r0,Kernel-1
+mov r0,Kernel-constantToSub
 cmp r4,0xD
+beq @@KernelBeastOutSet
+cmp r4,0x12
 beq @@KernelBeastOutSet
 @@OtherCrosses:
 add r0,r0,r4
@@ -101,6 +109,8 @@ lsl r0,r0,0x2
 ldr r0,[r1,r0]
 mov r15,r14
 
+.vdef altnewTestSuperBeastEscape, 0x80F1712,0x80F03D2
+
 newTestSuperBeast:
 cmp r0,Kernel
 beq NonSuperBeast
@@ -110,4 +120,4 @@ cmp r0,0x17
 blt NonSuperBeast
 mov r15,r14
 NonSuperBeast:
-bl 0x80F1712
+bl altnewTestSuperBeastEscape
