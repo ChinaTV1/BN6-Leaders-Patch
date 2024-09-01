@@ -8,9 +8,10 @@ mov r15,r14
 mov r6,KernelBeastOut
 mov r15,r14
 
+.vdef constantToCheckForgameVer,0x1,0x6
 BEASTEMOTION:
 mov r2,0xC
-cmp r6,0x6
+cmp r6,constantToCheckForgameVer+0x5
 beq @@SelectedKernel
 add r6,r6,r2
 mov r15,r14
@@ -28,9 +29,10 @@ mov r15,r14
 @@Normal:
 bl escapewindowCheck
 
+.vdef verExclusive,1,6
 theWindowCheck:
 ldr r5,=0x2035280
-cmp r6,0x6
+cmp r6,verExclusive+0x5
 beq @@SelectedKernel
 mov r0,r6
 mov r15,r14
@@ -78,7 +80,7 @@ ldr r0,=KernelTiredEmotion
 mov r15,r14
 .pool
 
-.vdef palettesforemotions,0x872D050,0x87532820
+.vdef palettesforemotions,0x872D050,0x872F114
 
 NewPaletteEmotionSelection:
 cmp r4,Kernel
