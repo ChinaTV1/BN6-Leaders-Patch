@@ -19,6 +19,11 @@ ldr r3,=0x20349A0
 ldr r3,[r3]
 mov r0,0x1
 lsl r0,r4
+.if gamever==1
+
+lsl r0,r0,5
+
+.endif
 and r3,r0
 bne @@LOOP2
 mov r0,0
@@ -81,6 +86,11 @@ ldr r3,=0x20349A0
 ldr r3,[r3]
 mov r0,0x1
 lsl r0,r4
+.if gamever==1
+
+lsl r0,r0,5
+
+.endif
 and r3,r0
 bne @@LOOP
 mov r0,0

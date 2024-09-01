@@ -1,5 +1,5 @@
 custom_sub_custom_check_select_enable_chip_sub_03 equ 0x8028F84 
-custom_sub_custom_check_chip_id_2 equ 0x802A54A 
+.vdef custom_sub_custom_check_chip_id_2, 0x802A54A,0x802A54E 
 
 DetourForArmChange:
 push r14
@@ -9,7 +9,7 @@ pop r15
 
 ArmChangeIndex equ 13
 ;GetCustomChipWorkAdrs equ 0x8027E1C
-custom_sub_custom_check_chip_id2 equ 0x802A54A
+;custom_sub_custom_check_chip_id2 equ 0x802A54A
 ChipTableAdrsGet equ 0x8021AA4 
 
 custom_sub_custom_set_reg equ 0x802899C

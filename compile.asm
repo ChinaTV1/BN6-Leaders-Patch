@@ -5,7 +5,12 @@ addr equ 0x8000000
 
 
 
+.if gamever == 0
 .open "rom.gba","patchedrom.gba",addr 
+.elseif gamever == 1
+.open "rom.gba","patchedromfalzar.gba",addr 
+.endif 
+
 filesizerom equ filesize("rom.gba")
 .relativeinclude on
 
@@ -199,10 +204,12 @@ pointerrecur "rom.gba",0x117D4,0  ;same
 .dw armBuster|1
 
 playercharpointers:
-.import "newenemylist/playerablecharpointersforgregar.bin"
+
 .if gamever == 0
+.import "newenemylist/playerablecharpointersforgregar.bin"
 .dw 0x80F1600
 .elseif gamever == 1
+.import "newenemylist/playerablecharpointersforfalzar.bin"
 .dw 0x80F02C0
 .endif
 .dw ColonelBeastAttributes
@@ -226,15 +233,30 @@ WindowConstants:
 
 CrossWindows:
 .align 4
+.if gamever==0
 .import "Sprites/bins/GregarCrossWindow.bin"
 .import "Sprites/bins/ColonelSelection.img.bin"
 .import "Sprites/bins/GregarCrossGrayScaleWindow.bin"
 .import "Sprites/bins/ColonelGray.img.bin"
+.elseif gamever==1
+.import "Sprites/bins/FalzarCrossWindow.bin"
+.import "Sprites/bins/ColonelSelection.img.bin"
+.import "Sprites/bins/FalzarCrossWindowsGrayScale.bin"
+.import "Sprites/bins/ColonelGray.img.bin"
+.endif
 PalettesForCrossWindow:
+.if gamever==0
 .import "Sprites/bins/CrossPalettes.bin"
 .import "Sprites/bins/ColonelSelection.pal.bin"
 .import "Sprites/bins/CrossPalettesBlueScale.bin"
 .import "Sprites/bins/ColonelSelect2.pal.bin"
+.elseif gamever==1
+.import "Sprites/bins/CrossPalettesFalzar.bin"
+.import "Sprites/bins/ColonelSelection.pal.bin"
+.import "Sprites/bins/CrossPalettesFalzarBlueScale.bin"
+.import "Sprites/bins/ColonelSelect2.pal.bin"
+
+.endif
 MapCrossWindow:
 .import "Sprites/maps/CrossMaps.bin"
 MegamanNewPalette:
