@@ -18,6 +18,7 @@ mov r15,r14
 mov r6,KernelBeastOut
 mov r15,r14
 
+.vdef escapewindowCheck,0x802A0b2,0x802A0b6
 CheckForBeastinWindow:
 cmp r1,Kernel
 beq @@Normal
@@ -25,7 +26,7 @@ cmp r1,0xB
 blt @@Normal
 mov r15,r14
 @@Normal:
-bl 0x802A0b2
+bl escapewindowCheck
 
 theWindowCheck:
 ldr r5,=0x2035280
@@ -38,6 +39,7 @@ mov r0,Kernel
 mov r15,r14
 .pool
 
+
 CheckForBeast:
 cmp r4,Kernel
 beq @@CheckForTired
@@ -46,7 +48,7 @@ bgt @@BeastOutWindow
 @@CheckForTired:
 mov r15,r14
 @@BeastOutWindow:
-bl 0x801E6EA
+bl 0x801E6EA ;same for both
 
 CheckForBeastCustomScreen:
 cmp r4,Kernel
@@ -76,6 +78,8 @@ ldr r0,=KernelTiredEmotion
 mov r15,r14
 .pool
 
+.vdef palettesforemotions,0x872D050,0x87532820
+
 NewPaletteEmotionSelection:
 cmp r4,Kernel
 beq KernelPalette
@@ -83,7 +87,7 @@ cmp r4,KernelBeastOut
 beq KernelCrossBeastPalette
 cmp r4,Kernel+5
 beq KernelTiredPalette
-ldr r1,=0x872D050
+ldr r1,=palettesforemotions
 add r0,r0,r1
 mov r15,r14
 KernelPalette:

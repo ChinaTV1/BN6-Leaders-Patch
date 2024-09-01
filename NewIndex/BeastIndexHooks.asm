@@ -44,7 +44,7 @@ bl BeastChargeShot
 .org 0x800FC08
 bl BeastLockOn
 
-.org 0x80E28C4
+.vorg 0x80E28C4,0x80E1584
 bl BeastLockIcon
 
 ;.org 0x80150CA

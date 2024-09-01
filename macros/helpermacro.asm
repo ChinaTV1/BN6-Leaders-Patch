@@ -49,3 +49,27 @@ Loop:
 	pointerrecurSpritePalette offset,curr+offset,end,newpointer
 .endif
 .endmacro
+
+.macro .vorga, offsetgregar,offsetfalzar
+.if gamever == 0
+.orga offsetgregar
+.elseif gamever == 1
+.orga offsetfalzar
+.endif
+.endmacro
+
+.macro .vorg, addressgregar,addressfalzar
+.if gamever == 0
+.org addressgregar
+.elseif gamever == 1
+.org addressfalzar
+.endif
+.endmacro
+
+.macro .vdef,label,addressgregar,addressfalzar
+.if gamever==0
+.definelabel label,addressgregar
+.elseif gamever == 1
+.definelabel label,addressfalzar
+.endif 
+.endmacro

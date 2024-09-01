@@ -10,14 +10,14 @@ bl NewPaletteEmotionSelection
 .org 0x801E688
 bl CheckForBeastCustomScreen
 
-.org 0x802A0b4
+.vorg 0x802A0b4,0x802A0B8
 bl theWindowCheck
 
-.org 0x802A0AA
+.vorg 0x802A0AA,0x802A0AE
 bl CheckForBeastinWindow
 
-.org 0x802A0AE
+.vorg 0x802A0AE,0x802A0B2
 bl BEASTEMOTION
 
-.org 0x802A06A
+.vorg 0x802A06A,0x802A06E
 bl BEASTEMOTION2

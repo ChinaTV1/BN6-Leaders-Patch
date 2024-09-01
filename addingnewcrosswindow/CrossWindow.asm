@@ -21,17 +21,17 @@ mov r2,6h ;selection color
 .db 0x56
 .org 0x80279C4
 .db 0x56
-.org 0x8029F60
+.vorg 0x8029F60,0x8029F64
 .db 0x56
 
-.org 0x8029F30
+.vorg 0x8029F30,0x8029F34
 nop
 
 .org 0x8029EC0
 .dw PalettesForCrossWindow
 
 
-.org 0x8029F0A
+.vorg 0x8029F0A,0x8029F0C
 nop
 
 ;.org 0x08029F3A
@@ -51,9 +51,9 @@ nop
 bl BitTestWindow
 beq 0x802797E
 
-.org 0x8029F3A
+.vorg 0x8029F3A,0x8029F3E
 cmp r4,0x6
 
-.org 0x8029F3E
+.vorg 0x8029F3E,0x8029F42
 bl setToMaxValue
 

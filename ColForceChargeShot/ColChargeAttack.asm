@@ -1,17 +1,17 @@
-@BattleHitStatusOn equ 0x801A152|1
-@navi_sword_arm_type_check equ 0x80ECE74|1
-@navi_sword_arm_seq_check equ 0x80ECE28|1
-@setcommonseqNo equ 0x800F2B6|1
-@setem05 equ 0x80BA6A0|1
-@CounterTimerSeq equ 0x800FDB6|1
-@SoundRQ equ 0x80005CC|1
-@Parameters equ 0x8104CC0
-@EFCSET equ 0x80E1932|1
-@SetShl03 equ 0x80C6BDA|1
-@FlipCheck equ 0x800E456|1
-@GetBlockPos equ 0x0800E276|1
+@BattleHitStatusOn equ 0x801A152|1 ;same
+.vdef navi_sword_arm_type_check,0x80ECE74|1,0x80EBB34|1
+.vdef navi_sword_arm_seq_check, 0x80ECE28|1,0x80EBAE8|1
+@setcommonseqNo equ 0x800F2B6|1 ;same
+.vdef setem05, 0x80BA6A0|1,0x80B8E30|1 
+@CounterTimerSeq equ 0x800FDB6|1 ;same
+@SoundRQ equ 0x80005CC|1 ;same
+.vdef Parameters, 0x8104CC0,0x8103998
+.vdef EFCSET,0x80E1932|1,0x80E05F6|1
+.vdef SetShl03,0x80C6BDA|1,0x80C536A|1
+@FlipCheck equ 0x800E456|1 ;same
+@GetBlockPos equ 0x0800E276|1 ;same
 @BattleHitStatusFlagOff equ 0x801A15C|1 
-@Finish equ 0x8011714|1
+@Finish equ 0x8011714|1 ;same
 
 .align 2
 ColonelSliceLoop:
@@ -41,15 +41,18 @@ BXwithR11 @BattleHitStatusOn
 mov r0,0x5
 BXwithR11  @setcommonseqNo
 push r7
-BXwithR11 @navi_sword_arm_type_check
+
+BXwithR11 navi_sword_arm_type_check
+
+
 mov r4,r0
-BXwithR11 @navi_sword_arm_seq_check
+BXwithR11 navi_sword_arm_seq_check
 ;mov r0,0xF
 lsl r0,r0,0x8
 add r4,r4,r0
 mov r7,0x4C
 add r7,r7,r5
-BXwithR11 @setem05
+BXwithR11 setem05
 pop r7
 BXwithR11 @CounterTimerSeq 
 mov r0,0xC7
@@ -64,7 +67,7 @@ cmp r0,0x9
 bne NextPhase
 ldrb r0,[r7,0x3]
 lsl r0,r0,0x2
-ldr r4,=@Parameters
+ldr r4,=Parameters
 ldr r4,[r4]
 ldrb r0,[r7,0x16]
 ldrb r1,[r7,0x17]
@@ -73,7 +76,7 @@ mov r3,0x0
 ldr r6,[r7,0x8]
 push r7
 mov r7,0x3
-BXwithR11 @SetShl03
+BXwithR11 SetShl03
 pop r7
 BXwithR11 @FlipCheck 
 lsl r4,r0,0x8
@@ -87,7 +90,7 @@ mov r2,r1
 mov r1,r0
 mov r3,0
 mov r4,0x35
-BXwithR11 @EFCSET
+BXwithR11 EFCSET
 NextPhase:
 ldrh r0,[r7,0x10]
 sub r0,0x1

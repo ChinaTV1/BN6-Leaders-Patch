@@ -16,12 +16,13 @@ mov r15,r14
 @@REGULARCROSS:
 bl 0x8015A66
 
-
+.vdef beastAdd,0xD,0x12
+.vdef constToSub,0x1,0x6
 BeastNewIndex:
-mov r4,0xD
+mov r4,beastADD
 cmp r1,Kernel
 beq @@KernelBeastOut
-sub r1,1
+sub r1,constToSub
 mov r15,r14
 @@KernelBeastOut:
 mov r4,0x1
@@ -114,12 +115,13 @@ bl 0x800FC18
 @@RealBeast:
 mov r15,r14
 
+.vdef BeastLockIconEscape,0x80E28DA,0x80E159A
 BeastLockIcon:
 cmp r0,KernelBeastOut
 beq @@RealBeast
 cmp r0, 0x18
 ble @@RealBeast
-bl 0x80E28DA
+bl BeastLockIconEscape
 @@RealBeast:
 mov r15,r14
 
