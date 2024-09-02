@@ -41,6 +41,7 @@ bl custom_sub_custom_check_chip_id_2
 lsl r0,r0,0x17
 lsr r0,r0,0x17
 mov r6,r0
+bl @@ArmChipExceptions
 bl ChipTableAdrsGet
 ldrb r1,[r0,0x7]
 cmp r1,0 
@@ -52,9 +53,10 @@ ldrb r1,[r0,0x9]
 mov r2,0x2
 tst r1,r2
 beq @@BRANCH1
-mov r2,0x20
+mov r2,0x1
 tst r1,r2
 bne @@BRANCH1
+@@AddArmChip:
 str r6,[r4,0x8]
 strb r7,[r4,0x4]
 ldrb r0,[r5,0x8]
@@ -71,3 +73,25 @@ strb r0,[r4,0x7]
 
 @@FINISH:
 pop r4,r6,r7,r15
+
+@@ArmChipExceptions:
+
+mov r2,0
+@@LoopBegin:
+ldr r1,=ChipExceptions
+ldrh r3,[r1,r2]
+ldr r1,=0xFFFF
+cmp r3,r1
+beq @@Escape
+cmp r3,r0
+beq @@ThisIsanException
+add r2,2
+b @@LoopBegin
+@@Escape:
+mov r15,r14
+@@ThisIsanException:
+bl @@AddArmChip
+
+.pool
+ChipExceptions:
+.dh 0x43,0x46,0x9A,0x9B,0x9C,0x9D,0xFFFF
