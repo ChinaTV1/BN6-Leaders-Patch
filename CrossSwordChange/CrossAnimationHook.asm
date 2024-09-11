@@ -1,0 +1,2 @@
+.vorg 0x80ECE78,0x80EBB38
+bl RedirectSwordAnimation

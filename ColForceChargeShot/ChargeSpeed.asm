@@ -17,6 +17,11 @@ bne @@NotColForceChargeShot2
 mov r0,0x78
 mov r15,r14
 @@NotColForceChargeShot2:
+cmp r0,0x98
+bne @@NotFlyingAttack
+mov r0,0x1E
+mov r15,r14
+@@NotFlyingAttack:
 ldr r2,=0x8020404
 @@LoadChargeShotInfo:
 ldrh r0,[r2,r1]

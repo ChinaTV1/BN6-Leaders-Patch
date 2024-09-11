@@ -121,3 +121,15 @@ blt NonSuperBeast
 mov r15,r14
 NonSuperBeast:
 bl altnewTestSuperBeastEscape
+
+
+superBeastKeyboard:
+cmp r0,Kernel
+beq @@NonSuperBeast2
+cmp r0,KernelBeastOut
+beq @@NonSuperBeast2
+cmp r0,0x17
+blt @@NonSuperBeast2
+mov r15,r14
+@@NonSuperBeast2:
+bl 0x8012E1E
