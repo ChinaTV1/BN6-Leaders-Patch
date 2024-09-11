@@ -15,6 +15,8 @@ filesizerom equ filesize("rom.gba")
 .relativeinclude on
 
 
+
+
 .include "macros/importSprites.asm" ;(import asm code)
 .include "macros/helpermacro.asm" ;
 .include "Constants/IndexConstants.asm"
@@ -34,6 +36,10 @@ filesizerom equ filesize("rom.gba")
 ;.include "Buster/BusterHook.asm" 
 
 .include "soundFix/SoundHook.asm"
+
+;.include "flyingattack/flyingMasterhook.asm"
+
+.include "CrossSwordChange/CrossAnimationHook.asm"
 
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
@@ -74,6 +80,10 @@ bl BackgroundCrossWindow
 ;.include "Buster/Buster.asm"
 .align 2
 .include "soundFix/sound.asm"
+.align 2
+.include "flyingattack/flyingMaster.asm"
+.align 2
+.include "CrossSwordChange/CrossAnimation.asm"
 .endarea
 
 .org 0x81DF420 
@@ -124,6 +134,13 @@ pointerrecur "rom.gba",0xEAC60,0
 .endif
 .dw ColonelSliceLoop|1
 .dw NewChargeAttack|1
+
+
+SoulInit2:
+pointerrecur "rom.gba",0x146B8,0
+.dw 0x801471D
+.dw 0x8014754|1
+
 
 AccessoryCrossList:
 pointerrecur "rom.gba",0x1127C,0 ;same 
@@ -202,6 +219,7 @@ pointerrecur "rom.gba",0x117D4,0  ;same
 .dw ChargeShotKernelBeastSet|1
 .dw KernelSetSoldier|1 ;Soldiers
 .dw armBuster|1
+.dw FlySet|1
 
 playercharpointers:
 
@@ -274,7 +292,7 @@ MegamanNewPaletteIndex:
 CrossAttackSettings:
 .import "ColForceChargeShot/CrossSettingsAttack.bin"
 .db 0xFF,0xFF,0x00,0x94,0x96,0xFF ;ColonelCross
-.db 0xFF, 0x05,0x04,0xFF,0x96,0x95 ;ColonelBeast
+.db 0xFF, 0x05,0x04,0xFF,0x96,0x95 ;ColonelBeast ;0x05 to put everything back
 MegamanCharPosition:
 .import "MegamanCharPosition/MegamanPos.bin"
 .db 0x0,0xE
@@ -387,6 +405,9 @@ SecondType:
 
 .vorga 0xEF5DC,0xEE29C
 .dh 0x1B06 ;elecbuster
+
+.orga 0x146B4
+.dw SoulInit2
 
 .orga 0x26AA0
 .dw custom_movePointers

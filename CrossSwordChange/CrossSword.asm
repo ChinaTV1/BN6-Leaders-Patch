@@ -6,6 +6,7 @@ mov r7,0x0
 ldr r4,[r5,0x58]
 ldrb r0,[r4]
 ldrb r1,[r4,0x1]
+;ldrb r6,[r4,0x3]
 cmp r0,0x0
 beq LoadSaber
 cmp r0,0x1
@@ -29,9 +30,11 @@ Jump2:
 mov r1,0x2C
 BXwithR11 @naviinfo
 mov r7,0xF
+;cmp r6,0x3
+;bne LoadingDefaultSaber
 cmp r0,Kernel
 beq LoadSaber
-
+LoadingDefaultSaber:
 mov r7,0x0
 cmp r0,0xB
 blt LoadSaber

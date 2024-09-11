@@ -81,7 +81,7 @@ pop r7
 BXwithR11 @FlipCheck 
 lsl r4,r0,0x8
 ldrb r0,[r7,0x3]
-add r0,0x48
+add r0,0x35
 add r4,r4,r0
 ldrb r0,[r7,0x16]
 ldrb r1,[r7,0x17]
@@ -89,7 +89,7 @@ BXwithR11 @GetBlockPos
 mov r2,r1
 mov r1,r0
 mov r3,0
-mov r4,0x35
+;mov r4,0x35
 BXwithR11 EFCSET
 NextPhase:
 ldrh r0,[r7,0x10]

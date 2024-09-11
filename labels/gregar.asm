@@ -1,0 +1,1 @@
+.definelabel slashchargeshot,0x80EF68A

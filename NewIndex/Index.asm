@@ -34,3 +34,6 @@ bl newTestSuperBeast
 
 .vorg  0x802A592,0x802A596
 bl TESTFORBEASTCrossWindow
+
+.org 0x8012E16
+bl superBeastKeyboard

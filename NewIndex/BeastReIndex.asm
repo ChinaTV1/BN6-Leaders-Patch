@@ -156,3 +156,14 @@ bl 0x800F090
 @@NormalBeastOut:
 mov r15,r14
 
+
+.vdef escapingVarsword,0x80F0b12,0x80EF7DA
+BeastVarSword:
+cmp r0,KernelBeastOut
+beq @@Finish
+cmp r0,0x18
+bgt @@Finish2
+@@Finish:
+mov r15,r14
+@@Finish2:
+bl escapingVarsword ;0x80F0B12

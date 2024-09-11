@@ -1,0 +1,8 @@
+.vorg 0x80F0A96,0x80F0A96
+nop
+
+.vorg 0x80F0A9A,0x80F0A9A
+nop
+
+.vorg 0x80F0980,0x80F0980
+.dw varDelay|1
