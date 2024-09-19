@@ -37,6 +37,7 @@ str r0,[sp]
 ldrb r0,[r5,0x13]
 str r0,[sp,0x4]
 ldrb r0,[r5,0x16]
+lsl r0,r0,2
 ldr r1,=Constants
 ldr r0,[r1,r0]
 str r0,[sp,0xC]

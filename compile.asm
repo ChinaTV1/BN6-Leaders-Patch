@@ -41,6 +41,9 @@ filesizerom equ filesize("rom.gba")
 
 .include "CrossSwordChange/CrossAnimationHook.asm"
 
+.include "WindSword/AirRackHook.asm"
+
+
 ;.orga 0x29DE4
 ;.dw MapCrossWindow
 
@@ -80,10 +83,12 @@ bl BackgroundCrossWindow
 ;.include "Buster/Buster.asm"
 .align 2
 .include "soundFix/sound.asm"
-.align 2
-.include "flyingattack/flyingMaster.asm"
+;.align 2
+;.include "flyingattack/flyingMaster.asm"
 .align 2
 .include "CrossSwordChange/CrossAnimation.asm"
+.align 2
+.include "WindSword/AirRack.asm"
 .endarea
 
 .org 0x81DF420 
@@ -219,7 +224,7 @@ pointerrecur "rom.gba",0x117D4,0  ;same
 .dw ChargeShotKernelBeastSet|1
 .dw KernelSetSoldier|1 ;Soldiers
 .dw armBuster|1
-.dw FlySet|1
+;.dw FlySet|1
 
 playercharpointers:
 
