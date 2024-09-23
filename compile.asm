@@ -71,8 +71,8 @@ bl BackgroundCrossWindow
 .include "SpriteColonelCrossIndex/ColonelAccessory.asm" ;looks good
 .align 2
 .include "EmotionWindowChanges/EmotionSelection.asm" ;looks good
-.align 2
-.include "ColForceChargeShot/ChargeSpeed.asm" ;looksgood
+;.align 2
+;.include "ColForceChargeShot/ChargeSpeed.asm" ;looksgood
 .align 2
 .include "NewIndex/BeastReIndex.asm" ;looks good
 .align 2
@@ -95,6 +95,9 @@ bl BackgroundCrossWindow
 .area 0x88A5
 .align 2
 .include "armchange/ArmMaster.asm"
+
+.align 2
+.include "ColForceChargeShot/ChargeSpeed.asm" ;looksgood
 .endarea
 
 .vorga 0xBDEE6,0xBC676
