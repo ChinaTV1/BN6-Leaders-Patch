@@ -201,8 +201,9 @@ pointerrecur "rom.gba",0xC5B44,0
 .dw 0x80C5AC8 ;0x13 newindex
 .elseif gamever == 1 
 pointerrecur "rom.gba",0xC42D4,0
+.dw 0x80C4258 
 .endif
-.dw 0x80C5AC8 ;0x13 newindex
+
 
 
 KillEm:
